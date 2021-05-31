@@ -3,11 +3,20 @@ from os import system
 from time import sleep
 
 def anahtar():
-    alfabe = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    a = sample(alfabe, 32)
-    key = ''.join(a)
-    print(key+"\n")
-    input()
+    while True:
+        kontrol = True
+        alfabe = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        a = sample(alfabe, 16)
+        key = ''.join(a)
+        for i in key.lower():
+            if (key.lower()).count(i) > 1:
+                kontrol = False
+        if kontrol:
+            print(key)
+            input("\n")
+            break
+        else:
+            pass
 
 def encode():
     ozel_kar = ['`','~','!','@','#','$','%','^','&','*','_','-','+','=','{','[',']','}','}','|', ':',';','"','<',',','>','.','?','/',' ','\n',"(",")"]
