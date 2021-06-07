@@ -2,26 +2,19 @@ from random import sample
 from os import system
 from time import sleep
 
+alfabee = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ozel_kar = ['`','~','!','@','#','$','%','^','&','*','_','-','+','=','{','[',']','}','}','|', ':',';','"','<',',','>','.','?','/',' ','\n',"(",")"]
+sayi = ["0","1","2","3","4","5","6","7","8","9"]
+
 def anahtar():
-    while True:
-        kontrol = True
-        alfabe = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        a = sample(alfabe, 16)
-        key = ''.join(a)
-        for i in key.lower():
-            if (key.lower()).count(i) > 1:
-                kontrol = False
-        if kontrol:
-            print(key)
-            input("\n")
-            break
-        else:
-            pass
+    a = sample((alfabee), 52)
+    key = "".join(a)
+    print(key)
+    input("\n")
+    
 
 def encode():
-    ozel_kar = ['`','~','!','@','#','$','%','^','&','*','_','-','+','=','{','[',']','}','}','|', ':',';','"','<',',','>','.','?','/',' ','\n',"(",")"]
-    sayi = ["0","1","2","3","4","5","6","7","8","9"]
-    alfabe = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    alfabe = list(alfabee)
     dosya = input("File path: ")
     with open(dosya,"r", encoding="utf-8") as f:
         r = f.read()
@@ -41,8 +34,7 @@ def encode():
                 pass
         
 def decode():
-    ozel_kar = ['`','~','!','@','#','$','%','^','&','*','_','-','+','=','{','[',']','}','}','|', ':',';','"','<',',','>','.','?','/',' ','\n',"(",")"]
-    alfabe = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    alfabe = list(alfabee)
     dosya = input("File path: ")
     with open(dosya,"r", encoding="utf-8") as f:
         r = f.read()
@@ -65,9 +57,7 @@ def decode():
                 pass  
 
 def anahtar_encode(anahtar):
-    ozel_kar = ['`','~','!','@','#','$','%','^','&','*','_','-','+','=','{','[',']','}','}','|', ':',';','"','<',',','>','.','?','/',' ','\n',"(",")"]
-    sayi = ["0","1","2","3","4","5","6","7","8","9"]
-    alfabe = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    alfabe = list(alfabee)
     dosya = input("File path: ")
     with open(dosya,"r", encoding="utf-8") as f:
         r = f.read()
@@ -92,9 +82,7 @@ def anahtar_encode(anahtar):
                     pass
             
 def anahtar_decode(anahtar):
-    ozel_kar = ['`','~','!','@','#','$','%','^','&','*','_','-','+','=','{','[',']','}','}','|', ':',';','"','<',',','>','.','?','/',' ','\n',"(",")"]
-    sayi = ["0","1","2","3","4","5","6","7","8","9"]
-    alfabe = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    alfabe = list(alfabee)
     dosya = input("File path: ")
     with open(dosya,"r", encoding="utf-8") as f:
         r = f.read()
@@ -126,7 +114,14 @@ def anahtar_decode(anahtar):
   
              
 while True:
-    print("""1-Encode
+    print(r"""
+ ____  _____ ____  
+/ ___||  ___|  _ \
+\___ \| |_  | |_) |
+ ___) |  _| |  _ <
+|____/|_|   |_| \_\
+
+1-Encode
 2-Decode
 3-Encode with key
 4-Decode with key
