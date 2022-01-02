@@ -1,192 +1,179 @@
+import platform
 from random import sample
 from os import system
 from time import sleep
 
-alfabE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-ozel_kar = ['`','~','!','@','#','$','%','^','&','*','_','-','+','=','{','[',']','}','}','|', ':',';','"','<',',','>','.','?','/',' ','\n',"(",")",r"'"]
+os = platform.system()
+if os == "Windows":
+    clear = "cls"
+else:
+    clear = "clear"
+
+alfabe = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 sayi = ["0","1","2","3","4","5","6","7","8","9"]
 
 def anahtar():
-    input("".join(sample((alfabE), 52))+"\n")
+    input("".join(sample((alfabe), 52))+"\n")
     
 def encode(text, fle):
-    alfabe = list(alfabE)
     if fle == "fle":
         txt = ""
-        r = text
-        for i in r:
-            if i in ozel_kar:
-                txt += (i+"½")
+        for i in text:
+            if i not in sayi and i not in alfabe:
+                txt += i+"≡"
             if i in sayi:
-                sayi_degistir = int(i)+3
-                txt += (str(sayi_degistir)+"ş"+"½")
+                txt += str(int(i)+3)+"≬"+"≡"
             try:
-                x = alfabe.index(i)
-                txt += (str(x+1)+"½")
+                txt += str(alfabe.index(i)+1)+"≡"
             except ValueError:
                 pass
         return txt
+    
     if text == "text":
-        dosya = fle
-        with open(dosya,"r", encoding="utf-8") as f:
-            r = f.read()
-        uzanti = dosya.split(".")
-        with open(f"encoded-{uzanti[1]}.txt", "a", encoding="utf-8") as file:
-            for i in r:
-                if i in ozel_kar:
-                    file.write(i+"½")
+        with open(fle,"r", encoding="utf-8") as f:
+            read = f.read()
+        uzanti = fle.split(".")[1]
+        with open(f"encoded-{uzanti}.txt", "a", encoding="utf-8") as file:
+            for i in read:
+                if i not in sayi and i not in alfabe:
+                    file.write(i+"≡")
                 if i in sayi:
-                    sayi_degistir = int(i)+3
-                    file.write(str(sayi_degistir)+"ş"+"½")
+                    file.write(str(int(i)+3)+"≬"+"≡")
                 try:
-                    x = alfabe.index(i)
-                    file.write(str(x+1)+"½")
+                    file.write(str(alfabe.index(i)+1)+"≡")
                 except ValueError:
                     pass
         
+
 def decode(text, fle):
-    alfabe = list(alfabE)
     if fle == "fle":
         txt = ""
-        r = text
-        bol = r.split("½")
+        bol = text.split("≡")
         for i in bol:
-            if i in ozel_kar:
-                txt += (i)
-            if "ş" in i:
-                sayi = i.split("ş")
-                sayi_bol = sayi[0]
-                sayi_degistir = int(sayi_bol)-3
-                txt += (str(sayi_degistir))
-            try:
-                x = alfabe[int(i)-1]
-                txt += (str(x))
-            except ValueError:
-                pass 
-        return txt 
-    if text == "text":
-        dosya = fle
-        with open(dosya,"r", encoding="utf-8") as f:
-            r = f.read()
-        a = ((dosya.split(".")[0]).split("-")[1])
-        with open(f"decoded.{a}", "a", encoding="utf-8") as file:
-            bol = r.split("½")
-            for i in bol:
-                if i in ozel_kar:
-                    file.write(i)
-                if "ş" in i:
-                    sayi = i.split("ş")
-                    sayi_bol = sayi[0]
-                    sayi_degistir = int(sayi_bol)-3
-                    file.write(str(sayi_degistir))
+            if "≬" in i:
+                txt += str(int(i.split("≬")[0])-3)
+            elif i not in sayi and i not in alfabe:
                 try:
-                    x = alfabe[int(i)-1]
-                    file.write(str(x))
+                    if int(i) < 10:
+                        pass
+                except ValueError:
+                    txt += i
+            try:
+                txt += str(alfabe[int(i)-1])
+            except ValueError:
+                pass
+        return txt 
+    
+    if text == "text":
+        with open(fle,"r", encoding="utf-8") as f:
+            r = f.read()
+        uzanti = ((fle.split(".")[0]).split("-")[1])
+        with open(f"decoded.{uzanti}", "a", encoding="utf-8") as file:
+            bol = r.split("≡")
+            for i in bol:
+                if "≬" in i:
+                    file.write(str(int(i.split("≬")[0])-3))
+                elif i not in sayi and i not in alfabe:
+                    try:
+                        if int(i) < 10:
+                            pass
+                    except ValueError:
+                        file.write(i)
+                try:
+                    file.write(str(alfabe[int(i)-1]))
                 except ValueError:
                     pass  
 
+
 def anahtar_encode(anahtar, text , fle):
-    alfabe = list(alfabE)
     if fle == "fle":
         txt = ""
-        r = text
-        for i in r:
+        for i in text:
             if i in anahtar:
-                x = alfabe.index(i)
-                liste = list(anahtar)
-                txt += (liste[x]+"½")
-            if i in ozel_kar:
-                txt += (i+"½")
+                txt += list(anahtar)[alfabe.index(i)]+"≡"
+            if i not in sayi and i not in alfabe:
+                txt += i+"≡"
             if i in sayi:
-                sayi_degistir = int(i)+3
-                txt += (str(sayi_degistir)+"ş"+"½")
+                txt += str(int(i)+3)+"≬"+"≡"
             if i not in anahtar:
                 try:
-                    x = alfabe.index(i)
-                    txt += (str(x)+"½")
+                    txt += (str(alfabe.index(i))+"≡")
                 except ValueError:
                     pass
         return txt
+    
     if text == "text":
-        dosya = fle
-        with open(dosya,"r", encoding="utf-8") as f:
+        with open(fle,"r", encoding="utf-8") as f:
             r = f.read()
-        uzanti = dosya.split(".")
-        with open(f"encoded-{uzanti[1]}.txt", "a+", encoding="utf-8") as file:
+        uzanti = fle.split(".")[1]
+        with open(f"encoded-{uzanti}.txt", "a+", encoding="utf-8") as file:
             for i in r:
                 if i in anahtar:
-                    x = alfabe.index(i)
-                    liste = list(anahtar)
-                    file.write(liste[x]+"½")
-                if i in ozel_kar:
-                    file.write(i+"½")
+                    file.write(list(anahtar)[alfabe.index(i)]+"≡")
+                if i not in sayi and i not in alfabe:
+                    file.write(i+"≡")
                 if i in sayi:
-                    sayi_degistir = int(i)+3
-                    file.write(str(sayi_degistir)+"ş"+"½")
+                    file.write(str(int(i)+3)+"≬"+"≡")
                 if i not in anahtar:
                     try:
-                        x = alfabe.index(i)
-                        file.write(str(x)+"½")
+                        file.write(str(alfabe.index(i))+"≡")
                     except ValueError:
                         pass
             
+
 def anahtar_decode(anahtar, text , fle):
-    alfabe = list(alfabE)
     if fle == "fle":
         txt = ""
-        r = text
-        bol = r.split("½")
+        bol = text.split("≡")
+        print(bol)
         for i in bol:
             if i in anahtar:
                 try:
-                    liste = list(anahtar)
-                    x = liste.index(i)
-                    txt += (alfabe[x])
+                    txt += alfabe[list(anahtar).index(i)]
                 except ValueError:
                     pass
-            if i in ozel_kar:
-                txt += (i)
-            if "ş" in i:
-                sayi = i.split("ş")
-                sayi_bol = sayi[0]
-                sayi_degistir = int(sayi_bol)-3
-                txt += (str(sayi_degistir))
+            if "≬" in i:
+                txt += str(int(i.split("≬")[0])-3)
+            elif i not in sayi and i not in alfabe:
+                try:
+                    if int(i) < 10:
+                        pass
+                except ValueError:
+                    txt += i
             if i not in anahtar:
                 try:
-                    x = alfabe[int(i)]
-                    txt += (str(x))
+                    txt += str(alfabe[int(i)])
                 except ValueError:
                     pass 
         return txt 
+    
     if text == "text":
-        dosya = fle
-        with open(dosya,"r", encoding="utf-8") as f:
+        with open(fle,"r", encoding="utf-8") as f:
             r = f.read()
-        a = ((dosya.split(".")[0]).split("-")[1])
-        with open(f"decoded.{a}", "a+", encoding="utf-8") as file:
-            bol = r.split("½")
+        uzanti = ((fle.split(".")[0]).split("-")[1])
+        with open(f"decoded.{uzanti}", "a+", encoding="utf-8") as file:
+            bol = r.split("≡")
             for i in bol:
                 if i in anahtar:
                     try:
-                        liste = list(anahtar)
-                        x = liste.index(i)
-                        file.write(alfabe[x])
+                        file.write(alfabe[list(anahtar).index(i)])
                     except ValueError:
                         pass
-                if i in ozel_kar:
-                    file.write(i)
-                if "ş" in i:
-                    sayi = i.split("ş")
-                    sayi_bol = sayi[0]
-                    sayi_degistir = int(sayi_bol)-3
-                    file.write(str(sayi_degistir))
+                if "≬" in i:
+                    file.write(str(int(i.split("≬")[0])-3))
+                elif i not in sayi and i not in alfabe:
+                    try:
+                        if int(i) < 10:
+                            pass
+                    except ValueError:
+                        file.write(i)
                 if i not in anahtar:
                     try:
-                        x = alfabe[int(i)]
-                        file.write(str(x))
+                        file.write(str(alfabe[int(i)]))
                     except ValueError:
                         pass  
   
+
 while True:
     print(r"""
  ____  _____ ____  
@@ -194,21 +181,23 @@ while True:
 \___ \| |_  | |_) |
  ___) |  _| |  _ <
 |____/|_|   |_| \_\
-
+    
 1- Encrypt-Decrypt Text
 2- Encrypt-Decrypt File
 3- Create New Key
+
 4- Exit""")
     try:
         menu1 = int(input("\n\nChoice: "))
     except ValueError:
-        system("cls")
+        system(clear)
         print("Please enter integer, not string..")
-        sleep(4)
-        system("cls")
+        sleep(3)
+        system(clear)
         continue
+    
     if menu1 == 1:
-        system("cls")
+        system(clear)
         print(r"""
  ____  _____ ____  
 / ___||  ___|  _ \
@@ -220,53 +209,55 @@ while True:
 2- Decryption 
 3- Encryption with Key
 4- Decryption with Key
+
 5- Return to Main Menu""")
         try:
             menu2 = int(input("\n\nChoice: "))
         except ValueError:
-            system("cls")
+            system(clear)
             print("Please enter integer, not string..")
-            sleep(4)
-            system("cls")
+            sleep(3)
+            system(clear)
             continue
         if menu2 == 1:
-            system("cls")
+            system(clear)
             text = input("Text: ")
-            system("cls")
+            system(clear)
             input(encode(text, "fle")+"\n\n")
-            system("cls")
+            system(clear)
         elif menu2 == 2:
-            system("cls")
+            system(clear)
             text = input("Encrypted Text: ")
-            system("cls")
+            system(clear)
             input(decode(text, "fle")+"\n\n")
-            system("cls")
+            system(clear)
         elif menu2 == 3:
-            system("cls")
+            system(clear)
             anahtar_al = input("Please enter key: ")
-            system("cls")
+            system(clear)
             text = input("Text: ")
-            system("cls")
+            system(clear)
             input(anahtar_encode(anahtar_al, text, "fle")+"\n\n")
-            system("cls")
+            system(clear)
         elif menu2 == 4:
-            system("cls")
+            system(clear)
             anahtar_al = input("Please enter key: ")
-            system("cls")
+            system(clear)
             text = input("Encrypted Text: ")
-            system("cls")
+            system(clear)
             input(anahtar_decode(anahtar_al, text, "fle")+"\n\n")
-            system("cls")
+            system(clear)
         elif menu2 == 5:
-            system("cls")
+            system(clear)
             continue
         else:
-            system("cls")
+            system(clear)
             print("Please enter valid input...")
             sleep(3)
-            system("cls")
+            system(clear)
+    
     if menu1 == 2:
-        system("cls")
+        system(clear)
         print(r"""
  ____  _____ ____  
 / ___||  ___|  _ \
@@ -278,50 +269,51 @@ while True:
 2- Decryption
 3- Encryption with key
 4- Decryption with key
+
 5- Return to Main Menu""")
         try:
             menu3 = int(input("\n\nChoice: "))
         except ValueError:
-            system("cls")
+            system(clear)
             print("Please enter integer, not string..")
-            sleep(4)
-            system("cls")
+            sleep(3)
+            system(clear)
             continue
         if menu3 == 1:
-            system("cls")
+            system(clear)
             path = input("Path: ")
-            system("cls")
+            system(clear)
             encode("text", path)
         elif menu3 == 2:
-            system("cls")
+            system(clear)
             path = input("Path: ")
-            system("cls")
+            system(clear)
             decode("text", path)
         elif menu3 == 3:
-            system("cls")
+            system(clear)
             anahtar_al = input("Please enter key: ")
-            system("cls")
+            system(clear)
             path = input("Path: ")
-            system("cls")
+            system(clear)
             anahtar_encode(anahtar_al, "text", path)
         elif menu3 == 4:
-            system("cls")
+            system(clear)
             anahtar_al = input("Please enter key: ")
-            system("cls")
+            system(clear)
             path = input("Path: ")
-            system("cls")
+            system(clear)
             anahtar_decode(anahtar_al, "text", path)
         elif menu3 == 5:
-            system("cls")
+            system(clear)
             continue
         else:
-            system("cls")
+            system(clear)
             print("Please enter valid input...")
             sleep(3)
-            system("cls")
+            system(clear)
     if menu1 == 3:
-        system("cls")
+        system(clear)
         anahtar()
-        system("cls")
+        system(clear)
     if menu1 == 4:
         break
