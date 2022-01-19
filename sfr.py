@@ -1,13 +1,6 @@
-import platform
 from random import sample
 from os import system
 from time import sleep
-
-os = platform.system()
-if os == "Windows":
-    clear = "cls"
-else:
-    clear = "clear"
 
 alfabe = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 sayi = ["0","1","2","3","4","5","6","7","8","9"]
@@ -190,14 +183,14 @@ while True:
     try:
         menu1 = int(input("\n\nChoice: "))
     except ValueError:
-        system(clear)
+        system("cls||clear")
         print("Please enter integer, not string..")
         sleep(3)
-        system(clear)
+        system("cls||clear")
         continue
     
     if menu1 == 1:
-        system(clear)
+        system("cls||clear")
         print(r"""
  ____  _____ ____  
 / ___||  ___|  _ \
@@ -214,50 +207,50 @@ while True:
         try:
             menu2 = int(input("\n\nChoice: "))
         except ValueError:
-            system(clear)
+            system("cls||clear")
             print("Please enter integer, not string..")
             sleep(3)
-            system(clear)
+            system("cls||clear")
             continue
         if menu2 == 1:
-            system(clear)
+            system("cls||clear")
             text = input("Text: ")
-            system(clear)
+            system("cls||clear")
             input(encode(text, "fle")+"\n\n")
-            system(clear)
+            system("cls||clear")
         elif menu2 == 2:
-            system(clear)
+            system("cls||clear")
             text = input("Encrypted Text: ")
-            system(clear)
+            system("cls||clear")
             input(decode(text, "fle")+"\n\n")
-            system(clear)
+            system("cls||clear")
         elif menu2 == 3:
-            system(clear)
+            system("cls||clear")
             anahtar_al = input("Please enter key: ")
-            system(clear)
+            system("cls||clear")
             text = input("Text: ")
-            system(clear)
+            system("cls||clear")
             input(anahtar_encode(anahtar_al, text, "fle")+"\n\n")
-            system(clear)
+            system("cls||clear")
         elif menu2 == 4:
-            system(clear)
+            system("cls||clear")
             anahtar_al = input("Please enter key: ")
-            system(clear)
+            system("cls||clear")
             text = input("Encrypted Text: ")
-            system(clear)
+            system("cls||clear")
             input(anahtar_decode(anahtar_al, text, "fle")+"\n\n")
-            system(clear)
+            system("cls||clear")
         elif menu2 == 5:
-            system(clear)
+            system("cls||clear")
             continue
         else:
-            system(clear)
+            system("cls||clear")
             print("Please enter valid input...")
             sleep(3)
-            system(clear)
+            system("cls||clear")
     
     if menu1 == 2:
-        system(clear)
+        system("cls||clear")
         print(r"""
  ____  _____ ____  
 / ___||  ___|  _ \
@@ -274,46 +267,46 @@ while True:
         try:
             menu3 = int(input("\n\nChoice: "))
         except ValueError:
-            system(clear)
+            system("cls||clear")
             print("Please enter integer, not string..")
             sleep(3)
-            system(clear)
+            system("cls||clear")
             continue
         if menu3 == 1:
-            system(clear)
+            system("cls||clear")
             path = input("Path: ")
-            system(clear)
+            system("cls||clear")
             encode("text", path)
         elif menu3 == 2:
-            system(clear)
+            system("cls||clear")
             path = input("Path: ")
-            system(clear)
+            system("cls||clear")
             decode("text", path)
         elif menu3 == 3:
-            system(clear)
+            system("cls||clear")
             anahtar_al = input("Please enter key: ")
-            system(clear)
+            system("cls||clear")
             path = input("Path: ")
-            system(clear)
+            system("cls||clear")
             anahtar_encode(anahtar_al, "text", path)
         elif menu3 == 4:
-            system(clear)
+            system("cls||clear")
             anahtar_al = input("Please enter key: ")
-            system(clear)
+            system("cls||clear")
             path = input("Path: ")
-            system(clear)
+            system("cls||clear")
             anahtar_decode(anahtar_al, "text", path)
         elif menu3 == 5:
-            system(clear)
+            system("cls||clear")
             continue
         else:
-            system(clear)
+            system("cls||clear")
             print("Please enter valid input...")
             sleep(3)
-            system(clear)
+            system("cls||clear")
     if menu1 == 3:
-        system(clear)
+        system("cls||clear")
         anahtar()
-        system(clear)
+        system("cls||clear")
     if menu1 == 4:
         break
